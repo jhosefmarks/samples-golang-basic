@@ -14,6 +14,7 @@ import (
 )
 
 const logFilename = "site-monitor.log"
+const sitesFilename = "sites.txt"
 
 func main() {
 	showGreeting()
@@ -28,8 +29,10 @@ func main() {
 		case 1:
 			startMonitoring()
 		case 2:
-			showLogs()
+			insertNewUrl()
 		case 3:
+			showLogs()
+		case 4:
 			clearLogs()
 		case 0:
 			fmt.Println("Leaving the program...")
@@ -51,8 +54,9 @@ func showGreeting() {
 
 func showMenu() {
 	fmt.Println("1 - Start monitoring")
-	fmt.Println("2 - Show Logs")
-	fmt.Println("3 - Clear Logs")
+	fmt.Println("2 - Insert new url for monitoring")
+	fmt.Println("3 - Show Logs")
+	fmt.Println("4 - Clear Logs")
 	fmt.Println("0 - Exit program")
 }
 
@@ -77,6 +81,27 @@ func startMonitoring() {
 	}
 }
 
+func insertNewUrl() {
+	var newUrl string
+
+	fmt.Print("\nInsert new url: ")
+	fmt.Scan(&newUrl)
+
+	saveUrl(newUrl)
+}
+
+func saveUrl(url string) {
+	file, err := os.OpenFile(sitesFilename, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	file.WriteString("\n" + url)
+
+	file.Close()
+}
+
 func testSite(url string) {
 	resp, err := http.Get(url)
 
@@ -96,7 +121,7 @@ func testSite(url string) {
 func loadUrlsByFile() []string {
 	var urls []string
 
-	file, err := os.Open("sites.txt")
+	file, err := os.Open(sitesFilename)
 
 	if err != nil {
 		fmt.Println("Error:", err)
