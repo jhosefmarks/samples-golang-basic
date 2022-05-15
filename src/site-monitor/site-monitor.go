@@ -52,10 +52,10 @@ func readCommand() int {
 }
 
 func startMonitoring() {
-	sites := []string{
+	urls := []string{
 		"https://go.dev/",
 		"https://pkg.go.dev/",
-		"https://random-status-code.herokuapp.com",
+		"https://random-status-code.herokuapp.com/",
 		"https://angular.io/",
 	}
 
@@ -63,13 +63,17 @@ func startMonitoring() {
 	fmt.Println("Monitoring...")
 	fmt.Println()
 
-	for i, site := range sites {
-		resp, _ := http.Get(site)
+	for _, site := range urls {
+		testSite(site)
+	}
+}
 
-		if resp.StatusCode == 200 {
-			fmt.Println("Site", i+1, ":", site, "has been loaded successfully!")
-		} else {
-			fmt.Println("Site", i+1, ":", site, "has problems. Status Code:", resp.StatusCode)
-		}
+func testSite(url string) {
+	resp, _ := http.Get(url)
+
+	if resp.StatusCode == 200 {
+		fmt.Println("Site", url, "has been loaded successfully!")
+	} else {
+		fmt.Println("Site", url, "has problems. Status Code:", resp.StatusCode)
 	}
 }
