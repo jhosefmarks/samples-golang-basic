@@ -7,6 +7,8 @@ import (
 	"os"
 )
 
+const numberMonitorings = 3
+
 func main() {
 	showGreeting()
 	fmt.Println()
@@ -63,8 +65,10 @@ func startMonitoring() {
 	fmt.Println("Monitoring...")
 	fmt.Println()
 
-	for _, site := range urls {
-		testSite(site)
+	for i := 0; i < numberMonitorings; i++ {
+		for _, site := range urls {
+			testSite(site)
+		}
 	}
 }
 
