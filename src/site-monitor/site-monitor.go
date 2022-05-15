@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -15,6 +16,7 @@ import (
 
 const logFilename = "site-monitor.log"
 const sitesFilename = "sites.txt"
+const urlPattern = `^(?:https?:\/\/)(?:[^@\/\n]+@)?(?:www\.)?([^:\/\n]+)`
 
 func main() {
 	showGreeting()
@@ -87,7 +89,20 @@ func insertNewUrl() {
 	fmt.Print("\nInsert new url: ")
 	fmt.Scan(&newUrl)
 
-	saveUrl(newUrl)
+	if validateUrl(newUrl) {
+		saveUrl(newUrl)
+	}
+}
+
+func validateUrl(url string) bool {
+	regexpUrl := regexp.MustCompile(urlPattern)
+
+	if !regexpUrl.MatchString(url) {
+		println(url, "is not a valid url!")
+		return false
+	}
+
+	return true
 }
 
 func saveUrl(url string) {
