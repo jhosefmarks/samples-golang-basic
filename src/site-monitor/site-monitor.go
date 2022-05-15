@@ -46,7 +46,7 @@ func main() {
 
 func showGreeting() {
 	nome := "Jhosef Marks"
-	versao := 1.1
+	versao := 1.2
 
 	fmt.Println("Hello, Mr.", nome)
 	fmt.Println("Software version:", versao)
