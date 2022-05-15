@@ -30,6 +30,19 @@ func (c *CurrentAccount) Deposit(value float64) string {
 	return "Deposit successfully."
 }
 
+func (c *CurrentAccount) Tranfer(value float64, destAccount *CurrentAccount) bool {
+	validOperation := value < c.balance && value > 0
+
+	if validOperation {
+		c.balance -= value
+		destAccount.Deposit(value)
+
+		return true
+	}
+
+	return false
+}
+
 func main() {
 	showTitle()
 
@@ -65,8 +78,14 @@ func main() {
 	fmt.Println("= Balance.: $", kenAccount.balance)
 	fmt.Println("- Deposit.: $ 700 -", kenAccount.Deposit(700))
 	fmt.Println("= Balance.: $", kenAccount.balance)
+	fmt.Println("- Transfer: $ 500 -", kenAccount.Tranfer(500, &robertAccount))
+	fmt.Println("= Balance.: $", kenAccount.balance)
 	fmt.Println("- Withdraw: $ 1500 -", kenAccount.Withdraw(1500))
 	fmt.Println("= Balance.: $", kenAccount.balance)
+
+	fmt.Println()
+	fmt.Println(robertAccount.holder, "bank statement")
+	fmt.Println("= Balance.: $", robertAccount.balance)
 }
 
 func showTitle() {
