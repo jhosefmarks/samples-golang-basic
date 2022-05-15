@@ -6,14 +6,14 @@ type CurrentAccount struct {
 	Holder    customers.Holder
 	BranchNo  int
 	AccountNo int
-	Balance   float64
+	balance   float64
 }
 
 func (c *CurrentAccount) Withdraw(value float64) string {
-	validOperation := value > 0 && value <= c.Balance
+	validOperation := value > 0 && value <= c.balance
 
 	if validOperation {
-		c.Balance -= value
+		c.balance -= value
 		return "Withdrawal successful."
 	}
 
@@ -25,20 +25,24 @@ func (c *CurrentAccount) Deposit(value float64) string {
 		return "Invalid value."
 	}
 
-	c.Balance += value
+	c.balance += value
 
 	return "Deposit successfully."
 }
 
 func (c *CurrentAccount) Tranfer(value float64, destAccount *CurrentAccount) bool {
-	validOperation := value < c.Balance && value > 0
+	validOperation := value < c.balance && value > 0
 
 	if validOperation {
-		c.Balance -= value
+		c.balance -= value
 		destAccount.Deposit(value)
 
 		return true
 	}
 
 	return false
+}
+
+func (c *CurrentAccount) GetBalance() float64 {
+	return c.balance
 }
