@@ -23,6 +23,7 @@ func main() {
 		os.Exit(0)
 	default:
 		fmt.Println("Error: Invalid command!")
+		os.Exit(-1)
 	}
 }
 
