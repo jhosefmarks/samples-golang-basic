@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
@@ -14,6 +15,7 @@ import (
 
 const numberMonitorings = 3
 const delay = 5
+const logFilename = "site-monitor.log"
 
 func main() {
 	showGreeting()
@@ -26,7 +28,7 @@ func main() {
 	case 1:
 		startMonitoring()
 	case 2:
-		fmt.Println("Showing Logs...")
+		showLogs()
 	case 0:
 		fmt.Println("Leaving the program...")
 		os.Exit(0)
@@ -118,7 +120,7 @@ func loadUrlsByFile() []string {
 }
 
 func log(url string, status bool) {
-	file, err := os.OpenFile("site-monitor.log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+	file, err := os.OpenFile(logFilename, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
 
 	if err != nil {
 		fmt.Println("Error:", err)
@@ -128,4 +130,18 @@ func log(url string, status bool) {
 		" - online: " + strconv.FormatBool(status) + "\n")
 
 	file.Close()
+}
+
+func showLogs() {
+	fmt.Println()
+	fmt.Println("Showing Logs...")
+
+	file, err := ioutil.ReadFile(logFilename)
+
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	fmt.Println()
+	fmt.Println(string(file))
 }
