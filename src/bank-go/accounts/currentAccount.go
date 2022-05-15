@@ -1,7 +1,9 @@
 package accounts
 
+import "bank-go/customers"
+
 type CurrentAccount struct {
-	Holder    string
+	Holder    customers.Holder
 	BranchNo  int
 	AccountNo int
 	Balance   float64

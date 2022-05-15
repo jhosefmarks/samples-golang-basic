@@ -4,26 +4,28 @@ import (
 	"fmt"
 
 	"bank-go/accounts"
+	"bank-go/customers"
 )
 
 func main() {
 	showTitle()
 
 	robertAccount := accounts.CurrentAccount{
-		Holder:    "Robert Griesemer",
+		Holder:    customers.Holder{Name: "Robert Griesemer"},
 		BranchNo:  589,
 		AccountNo: 123456,
 		Balance:   2300.,
 	}
 
 	kenAccount := accounts.CurrentAccount{
-		Holder:    "Ken Thompson",
+		Holder:    customers.Holder{Name: "Ken Thompson"},
 		BranchNo:  324,
 		AccountNo: 341866,
 		Balance:   2500,
 	}
 
-	fmt.Println(robertAccount.Holder, "bank statement")
+	fmt.Println(robertAccount.Holder.Name, "bank statement -",
+		robertAccount.BranchNo, "/", robertAccount.AccountNo)
 	fmt.Println("= Balance.: $", robertAccount.Balance)
 	fmt.Println("- Withdraw: $ 1000 -", robertAccount.Withdraw(1000))
 	fmt.Println("= Balance.: $", robertAccount.Balance)
@@ -35,7 +37,8 @@ func main() {
 	fmt.Println("= Balance.: $", robertAccount.Balance)
 
 	fmt.Println()
-	fmt.Println(kenAccount.Holder, "bank statement")
+	fmt.Println(kenAccount.Holder.Name, "bank statement -",
+		kenAccount.BranchNo, "/", kenAccount.AccountNo)
 	fmt.Println("= Balance.: $", kenAccount.Balance)
 	fmt.Println("- Withdraw: $ 1000 -", kenAccount.Withdraw(1000))
 	fmt.Println("= Balance.: $", kenAccount.Balance)
@@ -47,7 +50,8 @@ func main() {
 	fmt.Println("= Balance.: $", kenAccount.Balance)
 
 	fmt.Println()
-	fmt.Println(robertAccount.Holder, "bank statement")
+	fmt.Println(robertAccount.Holder.Name, "bank statement -",
+		robertAccount.BranchNo, "/", robertAccount.AccountNo)
 	fmt.Println("= Balance.: $", robertAccount.Balance)
 }
 
