@@ -9,6 +9,17 @@ type CurrentAccount struct {
 	balance   float64
 }
 
+func (c *CurrentAccount) Withdraw(value float64) string {
+	validOperation := value > 0 && value <= c.balance
+
+	if validOperation {
+		c.balance -= value
+		return "Withdrawal successful."
+	}
+
+	return "Insufficient funds."
+}
+
 func main() {
 	showTitle()
 
@@ -26,8 +37,20 @@ func main() {
 		balance:   2500,
 	}
 
-	fmt.Println(robertAccount)
-	fmt.Println(kenAccount)
+	fmt.Println(robertAccount.holder, "bank statement")
+	fmt.Println("= Balance.: $", robertAccount.balance)
+	fmt.Println("- Withdraw: $ 1000", robertAccount.Withdraw(1000))
+	fmt.Println("= Balance.: $", robertAccount.balance)
+	fmt.Println("- Withdraw: $ 1500", robertAccount.Withdraw(1500))
+	fmt.Println("= Balance.: $", robertAccount.balance)
+
+	fmt.Println()
+	fmt.Println(kenAccount.holder, "bank statement")
+	fmt.Println("= Balance.: $", kenAccount.balance)
+	fmt.Println("- Withdraw: $ 1000", kenAccount.Withdraw(1000))
+	fmt.Println("= Balance.: $", kenAccount.balance)
+	fmt.Println("- Withdraw: $ 1500", kenAccount.Withdraw(1500))
+	fmt.Println("= Balance.: $", kenAccount.balance)
 }
 
 func showTitle() {
