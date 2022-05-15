@@ -4,11 +4,7 @@ package main
 import "fmt"
 
 func main() {
-	nome := "Jhosef Marks"
-	versao := 1.1
-
-	fmt.Println("Hello, Mr.", nome)
-	fmt.Println("Software version:", versao)
+	showGreeting()
 
 	fmt.Println()
 	fmt.Println("1- Start monitoring")
@@ -29,4 +25,12 @@ func main() {
 	default:
 		fmt.Println("Error: Invalid command!")
 	}
+}
+
+func showGreeting() {
+	nome := "Jhosef Marks"
+	versao := 1.1
+
+	fmt.Println("Hello, Mr.", nome)
+	fmt.Println("Software version:", versao)
 }
