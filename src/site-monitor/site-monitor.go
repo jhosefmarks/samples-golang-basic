@@ -98,7 +98,7 @@ func validateUrl(url string) bool {
 	regexpUrl := regexp.MustCompile(urlPattern)
 
 	if !regexpUrl.MatchString(url) {
-		println(url, "is not a valid url!")
+		fmt.Println(url, "is not a valid url!")
 		return false
 	}
 
