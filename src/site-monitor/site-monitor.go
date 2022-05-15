@@ -9,4 +9,9 @@ func main() {
 
 	fmt.Println("Hello, Mr.", nome)
 	fmt.Println("Software version:", versao)
+
+	fmt.Println()
+	fmt.Println("1- Start monitoring")
+	fmt.Println("2- Show Logs")
+	fmt.Println("0- Exit program")
 }
