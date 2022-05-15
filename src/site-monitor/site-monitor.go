@@ -77,7 +77,11 @@ func startMonitoring() {
 }
 
 func testSite(url string) {
-	resp, _ := http.Get(url)
+	resp, err := http.Get(url)
+
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
 
 	if resp.StatusCode == 200 {
 		fmt.Println("Site", url, "has been loaded successfully!")
