@@ -2,9 +2,12 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -56,12 +59,7 @@ func readCommand() int {
 }
 
 func startMonitoring() {
-	urls := []string{
-		"https://go.dev/",
-		"https://pkg.go.dev/",
-		"https://random-status-code.herokuapp.com/",
-		"https://angular.io/",
-	}
+	urls := loadUrlsByFile()
 
 	fmt.Println()
 	fmt.Println("Monitoring...")
@@ -88,4 +86,30 @@ func testSite(url string) {
 	} else {
 		fmt.Println("Site", url, "has problems. Status Code:", resp.StatusCode)
 	}
+}
+
+func loadUrlsByFile() []string {
+	var urls []string
+
+	file, err := os.Open("sites.txt")
+
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	reader := bufio.NewReader(file)
+	for {
+		line, err := reader.ReadString('\n')
+		line = strings.TrimSpace(line)
+
+		urls = append(urls, line)
+
+		if err == io.EOF {
+			break
+		}
+	}
+
+	file.Close()
+
+	return urls
 }
