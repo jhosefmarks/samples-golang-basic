@@ -5,11 +5,8 @@ import "fmt"
 
 func main() {
 	showGreeting()
-
 	fmt.Println()
-	fmt.Println("1- Start monitoring")
-	fmt.Println("2- Show Logs")
-	fmt.Println("0- Exit program")
+	showMenu()
 
 	fmt.Print("\nCommand: ")
 	var comando int
@@ -33,4 +30,10 @@ func showGreeting() {
 
 	fmt.Println("Hello, Mr.", nome)
 	fmt.Println("Software version:", versao)
+}
+
+func showMenu() {
+	fmt.Println("1- Start monitoring")
+	fmt.Println("2- Show Logs")
+	fmt.Println("0- Exit program")
 }
