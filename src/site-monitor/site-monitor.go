@@ -13,28 +13,29 @@ import (
 	"time"
 )
 
-const numberMonitorings = 3
-const delay = 5
 const logFilename = "site-monitor.log"
 
 func main() {
 	showGreeting()
-	fmt.Println()
-	showMenu()
 
-	command := readCommand()
+	for {
+		fmt.Println()
+		showMenu()
 
-	switch command {
-	case 1:
-		startMonitoring()
-	case 2:
-		showLogs()
-	case 0:
-		fmt.Println("Leaving the program...")
-		os.Exit(0)
-	default:
-		fmt.Println("Error: Invalid command!")
-		os.Exit(-1)
+		command := readCommand()
+
+		switch command {
+		case 1:
+			startMonitoring()
+		case 2:
+			showLogs()
+		case 0:
+			fmt.Println("Leaving the program...")
+			os.Exit(0)
+		default:
+			fmt.Println("Error: Invalid command!")
+			os.Exit(-1)
+		}
 	}
 }
 
@@ -68,12 +69,8 @@ func startMonitoring() {
 	fmt.Println("Monitoring...")
 	fmt.Println()
 
-	for i := 0; i < numberMonitorings; i++ {
-		for _, site := range urls {
-			testSite(site)
-		}
-
-		time.Sleep(delay * time.Second)
+	for _, site := range urls {
+		testSite(site)
 	}
 }
 
