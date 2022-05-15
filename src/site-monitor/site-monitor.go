@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -83,8 +84,10 @@ func testSite(url string) {
 
 	if resp.StatusCode == 200 {
 		fmt.Println("Site", url, "has been loaded successfully!")
+		log(url, true)
 	} else {
 		fmt.Println("Site", url, "has problems. Status Code:", resp.StatusCode)
+		log(url, false)
 	}
 }
 
@@ -112,4 +115,17 @@ func loadUrlsByFile() []string {
 	file.Close()
 
 	return urls
+}
+
+func log(url string, status bool) {
+	file, err := os.OpenFile("site-monitor.log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+
+	file.WriteString(time.Now().Format("02/01/2006 15:04:05") + " - " + url +
+		" - online: " + strconv.FormatBool(status) + "\n")
+
+	file.Close()
 }
