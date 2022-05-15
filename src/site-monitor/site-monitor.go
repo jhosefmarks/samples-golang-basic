@@ -3,6 +3,7 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 )
 
@@ -15,7 +16,7 @@ func main() {
 
 	switch command {
 	case 1:
-		fmt.Println("Monitoring...")
+		startMonitoring()
 	case 2:
 		fmt.Println("Showing Logs...")
 	case 0:
@@ -48,4 +49,20 @@ func readCommand() int {
 	fmt.Scan(&command)
 
 	return command
+}
+
+func startMonitoring() {
+	site := "https://random-status-code.herokuapp.com"
+
+	fmt.Println()
+	fmt.Println("Monitoring...")
+	fmt.Println()
+
+	resp, _ := http.Get(site)
+
+	if resp.StatusCode == 200 {
+		fmt.Println(site, "has been loaded successfully!")
+	} else {
+		fmt.Println(site, "has problems. Status Code:", resp.StatusCode)
+	}
 }
