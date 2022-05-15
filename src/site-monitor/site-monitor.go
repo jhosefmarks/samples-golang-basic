@@ -1,7 +1,10 @@
 //hello.go
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func main() {
 	showGreeting()
@@ -17,6 +20,7 @@ func main() {
 		fmt.Println("Showing Logs...")
 	case 0:
 		fmt.Println("Leaving the program...")
+		os.Exit(0)
 	default:
 		fmt.Println("Error: Invalid command!")
 	}
