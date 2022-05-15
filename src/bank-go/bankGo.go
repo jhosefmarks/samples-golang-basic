@@ -20,6 +20,16 @@ func (c *CurrentAccount) Withdraw(value float64) string {
 	return "Insufficient funds."
 }
 
+func (c *CurrentAccount) Deposit(value float64) string {
+	if value <= 0 {
+		return "Invalid value."
+	}
+
+	c.balance += value
+
+	return "Deposit successfully."
+}
+
 func main() {
 	showTitle()
 
@@ -39,17 +49,23 @@ func main() {
 
 	fmt.Println(robertAccount.holder, "bank statement")
 	fmt.Println("= Balance.: $", robertAccount.balance)
-	fmt.Println("- Withdraw: $ 1000", robertAccount.Withdraw(1000))
+	fmt.Println("- Withdraw: $ 1000 -", robertAccount.Withdraw(1000))
 	fmt.Println("= Balance.: $", robertAccount.balance)
-	fmt.Println("- Withdraw: $ 1500", robertAccount.Withdraw(1500))
+	fmt.Println("- Withdraw: $ 1500 -", robertAccount.Withdraw(1500))
+	fmt.Println("= Balance.: $", robertAccount.balance)
+	fmt.Println("- Deposit.: $ 500 -", robertAccount.Deposit(500))
+	fmt.Println("= Balance.: $", robertAccount.balance)
+	fmt.Println("- Deposit.: $ -50 -", robertAccount.Deposit(-50))
 	fmt.Println("= Balance.: $", robertAccount.balance)
 
 	fmt.Println()
 	fmt.Println(kenAccount.holder, "bank statement")
 	fmt.Println("= Balance.: $", kenAccount.balance)
-	fmt.Println("- Withdraw: $ 1000", kenAccount.Withdraw(1000))
+	fmt.Println("- Withdraw: $ 1000 -", kenAccount.Withdraw(1000))
 	fmt.Println("= Balance.: $", kenAccount.balance)
-	fmt.Println("- Withdraw: $ 1500", kenAccount.Withdraw(1500))
+	fmt.Println("- Deposit.: $ 700 -", kenAccount.Deposit(700))
+	fmt.Println("= Balance.: $", kenAccount.balance)
+	fmt.Println("- Withdraw: $ 1500 -", kenAccount.Withdraw(1500))
 	fmt.Println("= Balance.: $", kenAccount.balance)
 }
 
