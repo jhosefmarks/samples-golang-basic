@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 )
 
 const numberMonitorings = 3
+const delay = 5
 
 func main() {
 	showGreeting()
@@ -69,6 +71,8 @@ func startMonitoring() {
 		for _, site := range urls {
 			testSite(site)
 		}
+
+		time.Sleep(delay * time.Second)
 	}
 }
 
