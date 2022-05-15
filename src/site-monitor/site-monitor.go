@@ -29,6 +29,8 @@ func main() {
 			startMonitoring()
 		case 2:
 			showLogs()
+		case 3:
+			clearLogs()
 		case 0:
 			fmt.Println("Leaving the program...")
 			os.Exit(0)
@@ -48,9 +50,10 @@ func showGreeting() {
 }
 
 func showMenu() {
-	fmt.Println("1- Start monitoring")
-	fmt.Println("2- Show Logs")
-	fmt.Println("0- Exit program")
+	fmt.Println("1 - Start monitoring")
+	fmt.Println("2 - Show Logs")
+	fmt.Println("3 - Clear Logs")
+	fmt.Println("0 - Exit program")
 }
 
 func readCommand() int {
@@ -127,6 +130,16 @@ func log(url string, status bool) {
 		" - online: " + strconv.FormatBool(status) + "\n")
 
 	file.Close()
+}
+
+func clearLogs() {
+	fmt.Println()
+	fmt.Println("Clearing Logs...")
+
+	err := os.Remove(logFilename)
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
 }
 
 func showLogs() {
