@@ -8,11 +8,9 @@ func main() {
 	fmt.Println()
 	showMenu()
 
-	fmt.Print("\nCommand: ")
-	var comando int
-	fmt.Scan(&comando)
+	command := readCommand()
 
-	switch comando {
+	switch command {
 	case 1:
 		fmt.Println("Monitoring...")
 	case 2:
@@ -36,4 +34,13 @@ func showMenu() {
 	fmt.Println("1- Start monitoring")
 	fmt.Println("2- Show Logs")
 	fmt.Println("0- Exit program")
+}
+
+func readCommand() int {
+	var command int
+
+	fmt.Print("\nCommand: ")
+	fmt.Scan(&command)
+
+	return command
 }
