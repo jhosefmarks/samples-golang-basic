@@ -22,6 +22,13 @@ func main() {
 		AccountNo: 341866,
 	}
 
+	robAccount := accounts.SavingAccount{
+		Holder:    customers.Holder{Name: "Rob Pike"},
+		BranchNo:  421,
+		AccountNo: 876312,
+		Operation: 1,
+	}
+
 	fmt.Println(robertAccount.Holder.Name, "bank statement -",
 		robertAccount.BranchNo, "/", robertAccount.AccountNo)
 	fmt.Println("+ Init....: $ 2300 -", robertAccount.Deposit(2300))
@@ -55,6 +62,16 @@ func main() {
 	fmt.Println(robertAccount.Holder.Name, "bank statement -",
 		robertAccount.BranchNo, "/", robertAccount.AccountNo)
 	fmt.Println("= Balance.: $", robertAccount.GetBalance())
+
+	fmt.Println()
+	fmt.Println(robAccount.Holder.Name, "bank statement -",
+		robAccount.BranchNo, "/", robAccount.AccountNo, "-", robAccount.Operation)
+	fmt.Println("+ Init....: $ 1000 -", robAccount.Deposit(1000))
+	fmt.Println("= Balance.: $", robAccount.GetBalance())
+	fmt.Println("- Withdraw: $ 1200 -", robAccount.Withdraw(1200))
+	fmt.Println("= Balance.: $", robAccount.GetBalance())
+	fmt.Println("+ Deposit.: $ 500 -", robAccount.Deposit(500))
+	fmt.Println("= Balance.: $", robAccount.GetBalance())
 }
 
 func showTitle() {
