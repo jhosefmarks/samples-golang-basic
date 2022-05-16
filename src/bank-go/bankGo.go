@@ -7,6 +7,14 @@ import (
 	"bank-go/customers"
 )
 
+type verifyAccount interface {
+	Withdraw(value float64) string
+}
+
+func PayBill(account verifyAccount, value float64) string {
+	return account.Withdraw(value)
+}
+
 func main() {
 	showTitle()
 
@@ -43,6 +51,8 @@ func main() {
 	fmt.Println("= Balance.: $", robertAccount.GetBalance())
 	fmt.Println("- Transfer: $ 2500 -", robertAccount.Tranfer(2500, &kenAccount))
 	fmt.Println("= Balance.: $", robertAccount.GetBalance())
+	fmt.Println("- Pay bill: $ 190 -", PayBill(&robertAccount, 190))
+	fmt.Println("= Balance.: $", robertAccount.GetBalance())
 
 	fmt.Println()
 	fmt.Println(kenAccount.Holder.Name, "bank statement -",
@@ -70,7 +80,9 @@ func main() {
 	fmt.Println("= Balance.: $", robAccount.GetBalance())
 	fmt.Println("- Withdraw: $ 1200 -", robAccount.Withdraw(1200))
 	fmt.Println("= Balance.: $", robAccount.GetBalance())
-	fmt.Println("+ Deposit.: $ 500 -", robAccount.Deposit(500))
+	fmt.Println("+ Deposit.: $ 200 -", robAccount.Deposit(200))
+	fmt.Println("= Balance.: $", robAccount.GetBalance())
+	fmt.Println("- Pay bill: $ 1400 -", PayBill(&robAccount, 1400))
 	fmt.Println("= Balance.: $", robAccount.GetBalance())
 }
 
