@@ -30,17 +30,17 @@ func (c *CurrentAccount) Deposit(value float64) string {
 	return "Deposit successfully."
 }
 
-func (c *CurrentAccount) Tranfer(value float64, destAccount *CurrentAccount) bool {
+func (c *CurrentAccount) Tranfer(value float64, destAccount *CurrentAccount) string {
 	validOperation := value < c.balance && value > 0
 
 	if validOperation {
 		c.balance -= value
 		destAccount.Deposit(value)
 
-		return true
+		return "Transfer successful."
 	}
 
-	return false
+	return "Insufficient funds."
 }
 
 func (c *CurrentAccount) GetBalance() float64 {

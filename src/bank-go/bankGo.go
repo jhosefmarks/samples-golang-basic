@@ -34,6 +34,8 @@ func main() {
 	fmt.Println("= Balance.: $", robertAccount.GetBalance())
 	fmt.Println("+ Deposit.: $ -50 -", robertAccount.Deposit(-50))
 	fmt.Println("= Balance.: $", robertAccount.GetBalance())
+	fmt.Println("- Transfer: $ 2500 -", robertAccount.Tranfer(2500, &kenAccount))
+	fmt.Println("= Balance.: $", robertAccount.GetBalance())
 
 	fmt.Println()
 	fmt.Println(kenAccount.Holder.Name, "bank statement -",
