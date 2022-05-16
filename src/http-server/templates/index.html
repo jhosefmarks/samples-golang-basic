@@ -18,6 +18,33 @@
       <span class="navbar-brand mb-0 h1">Go Store</span>
     </div>
   </nav>
+
+  <div class="container-fluid">
+    <section class="card">
+      <div>
+        <table class="table table-striped table-hover mb-0">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{range .}}
+            <tr>
+              <td>{{.Name}}</td>
+              <td>{{.Description}}</td>
+              <td>$ {{.Price}}</td>
+              <td>{{.Amount}}</td>
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+    </section>
+</div>
 </body>
 </html>
 {{end}}
