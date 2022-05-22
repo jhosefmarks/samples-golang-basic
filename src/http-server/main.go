@@ -28,18 +28,44 @@ func main() {
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
-	products := []Product{
-		{Name: "Blue T-shirt", Description: "Beautiful T-shirt", Price: 39.9, Amount: 5},
-		{"Shoes", "Comfortable shoes for hiking.", 89.9, 3},
-		{"Phone", "The best phone for you.", 259.99, 2},
-		{"Jeans", "Casual clothes for everyday life.", 29.99, 1},
+	db := connectDB()
+
+	rows, err := db.Query(`
+		SELECT ID, NAME, DESCRIPTION, PRICE, AMOUNT
+		FROM PRODUCTS
+		ORDER BY NAME
+	`)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	p := Product{}
+	products := []Product{}
+
+	for rows.Next() {
+		var id, amount int
+		var name, description string
+		var price float64
+
+		err = rows.Scan(&id, &name, &description, &price, &amount)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		p.Name = name
+		p.Description = description
+		p.Price = price
+		p.Amount = amount
+
+		products = append(products, p)
 	}
 
 	temp.ExecuteTemplate(w, "Index", products)
+	defer db.Close()
 }
 
 func connectDB() *sql.DB {
-	db, err := sql.Open("sqlite3", "sqlite3.db")
+	db, err := sql.Open("sqlite3", "sqlite.db")
 	if err != nil {
 		panic(err.Error())
 	}
