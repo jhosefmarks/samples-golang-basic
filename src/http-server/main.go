@@ -6,14 +6,8 @@ import (
 	"net/http"
 
 	"http-server/db"
+	"http-server/models"
 )
-
-type Product struct {
-	Name        string
-	Description string
-	Price       float64
-	Amount      int
-}
 
 var temp = template.Must(template.ParseGlob("templates/*.html"))
 
@@ -37,8 +31,8 @@ func index(w http.ResponseWriter, r *http.Request) {
 		panic(err.Error())
 	}
 
-	p := Product{}
-	products := []Product{}
+	p := models.Product{}
+	products := []models.Product{}
 
 	for rows.Next() {
 		var id, amount int
