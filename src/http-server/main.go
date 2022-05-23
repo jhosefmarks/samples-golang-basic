@@ -1,12 +1,11 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"html/template"
 	"net/http"
 
-	_ "github.com/mattn/go-sqlite3"
+	"http-server/db"
 )
 
 type Product struct {
@@ -24,11 +23,10 @@ func main() {
 	fmt.Println("Server listen on port 8000")
 	http.ListenAndServe(":8000", nil)
 
-	connectDB()
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
-	db := connectDB()
+	db := db.ConnectDB()
 
 	rows, err := db.Query(`
 		SELECT ID, NAME, DESCRIPTION, PRICE, AMOUNT
@@ -62,13 +60,4 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 	temp.ExecuteTemplate(w, "Index", products)
 	defer db.Close()
-}
-
-func connectDB() *sql.DB {
-	db, err := sql.Open("sqlite3", "sqlite.db")
-	if err != nil {
-		panic(err.Error())
-	}
-
-	return db
 }
