@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"net/http"
 
-	"http-server/controllers"
+	"http-server/routes"
 )
 
 func main() {
-	http.HandleFunc("/", controllers.Index)
+	routes.LoadRoutes()
 
 	fmt.Println("Server listen on port 8000")
-	http.ListenAndServe(":8000", nil)
 
+	http.ListenAndServe(":8000", nil)
 }
