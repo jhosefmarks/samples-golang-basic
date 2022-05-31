@@ -115,3 +115,23 @@ func EditProduct(id string) Product {
 
 	return product
 }
+
+func UpdateProduct(id int, name, description string, price float64, amount int) {
+	db := db.ConnectDB()
+
+	query, err := db.Prepare(`
+		UPDATE PRODUCTS
+			SET NAME = $1,
+				DESCRIPTION = $2,
+  			PRICE = $3,
+				AMOUNT = $4
+			WHERE ID = $5
+	`)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	query.Exec(name, description, price, amount, id)
+
+	defer db.Close()
+}
